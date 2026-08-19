@@ -867,7 +867,6 @@ class JARVISLive:
             self.ui.set_state("THINKING")
             print("[[NIK]] 🔄 Reconnecting in 3s...")
             await asyncio.sleep(3)
-
 def main():
     ui = JarvisUI("face.png")
 
@@ -880,6 +879,37 @@ def main():
             print("\n🔴 Shutting down...")
 
     threading.Thread(target=runner, daemon=True).start()
+    ui.root.mainloop()
+
+def main():
+    print("=== NIK AI STARTING ===", flush=True)
+
+    ui = JarvisUI("face.png")
+
+    print("=== UI CREATED ===", flush=True)
+
+    def runner():
+        print("=== RUNNER STARTED ===", flush=True)
+
+        ui.wait_for_api_key()
+
+        print("=== API CONFIG READY ===", flush=True)
+
+        nik = JARVISLive(ui)
+
+        print("=== JARVIS OBJECT CREATED ===", flush=True)
+
+        try:
+            asyncio.run(nik.run())
+        except KeyboardInterrupt:
+            print("\n🔴 Shutting down...", flush=True)
+        except Exception:
+            traceback.print_exc()
+
+    threading.Thread(target=runner, daemon=True).start()
+
+    print("=== STARTING UI LOOP ===", flush=True)
+
     ui.root.mainloop()
 
 
