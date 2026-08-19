@@ -25,7 +25,7 @@ import tempfile
 from pathlib import Path
 from datetime import datetime
 
-import google.generativeai as genai
+from google import genai
 
 
 def _get_api_key() -> str:
